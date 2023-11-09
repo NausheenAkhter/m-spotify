@@ -1,6 +1,22 @@
 import Playlist, { validate, validateSongAdditionInPlaylist } from "../../models/playlist.js"
 import User from "../../models/users.js"
 
+const getAllPlaylists = async (req, res) => {
+    const playlist = await Playlist.find().populate('songs')
+    return res.status(200).send({ message: 'success', data: playlist })
+}
+const getRandomPlaylists = async (req, res) => {
+    const playlist = await Playlist.aggregate([{ 
+        $sample: { size: 5 } }, {
+        $lookup: {
+            from: 'songs',
+            localField: 'songs',
+            foreignField: '_id',
+            as: 'songs'
+        }
+    }])
+    return res.status(200).send({ message: 'success', data: playlist })
+}
 const getPlaylists = async (req, res) => {
     const playlist = await Playlist.find({ user: req.user._id }).populate('songs')
     return res.status(200).send({ message: 'success', data: playlist })
@@ -63,5 +79,7 @@ export {
     addSongInPlaylist,
     removeSongFromPlaylist,
     updatePlaylistById,
-    deletePlaylistById
+    deletePlaylistById,
+    getAllPlaylists,
+    getRandomPlaylists
 }
