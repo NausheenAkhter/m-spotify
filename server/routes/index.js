@@ -1,7 +1,8 @@
-import playListRoutes from "./playlist/index.js";
-import { searchRoutes } from "./search/index.js";
-import songRoutes from "./song/index.js";
-import userRoutes from "./user/index.js";
+const playListRoutes = require("./playlist/index.js");
+const { searchRoutes } = require("./search/index.js");
+const songRoutes = require("./song/index.js");
+const userRoutes = require("./user/index.js");
+
 
 const routes = (app) => {
     userRoutes(app)
@@ -10,4 +11,4 @@ const routes = (app) => {
     searchRoutes(app)
 }
 
-export default routes
+module.exports =  routes

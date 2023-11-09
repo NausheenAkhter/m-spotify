@@ -1,5 +1,6 @@
-import Playlist, { validate, validateSongAdditionInPlaylist } from "../../models/playlist.js"
-import User from "../../models/users.js"
+const { Playlist, validate, validateSongAdditionInPlaylist } = require("../../models/playlist.js");
+const {User} = require("../../models/users.js");
+
 
 const getAllPlaylists = async (req, res) => {
     const playlist = await Playlist.find().populate('songs')
@@ -72,7 +73,7 @@ const deletePlaylistById = async (req, res) => {
     return res.status(200).send({ message: 'success', data: playlist })
 }
 
-export {
+module.exports =  {
     getPlaylists,
     getPlaylistById,
     addPlaylist,

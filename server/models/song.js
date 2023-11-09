@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-import Joi from "joi";
-import User from "./users.js";
-import Playlist from "./playlist.js";
+const mongoose = require("mongoose");
+const Joi = require("joi");
+const { User } = require("./users.js");
+const { Playlist } = require("./playlist.js");
+
 
 
 const songSchema = new mongoose.Schema({
@@ -66,5 +67,4 @@ const validate = (song) => {
 }
 
 const Song = mongoose.model('song', songSchema)
-export default Song
-export { validate }
+module.exports = { validate, Song }

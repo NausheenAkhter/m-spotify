@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import Jwt from 'jsonwebtoken';
-import JoiPasswordComplexity from 'joi-password-complexity';
-import Joi from "joi";
+const mongoose = require("mongoose");
+const Jwt = require("jsonwebtoken");
+const JoiPasswordComplexity = require("joi-password-complexity");
+const Joi = require("joi");
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -77,5 +77,4 @@ const validate = (user, kind) => {
 
 const User = mongoose.model('user', userSchema)
 
-export default User
-export { validate }
+module.exports =  { validate, User }

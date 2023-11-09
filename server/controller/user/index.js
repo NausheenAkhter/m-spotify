@@ -1,5 +1,5 @@
-import User, { validate } from "../../models/users.js"
-import bcrypt from 'bcrypt'
+const { validate, User } = require("../../models/users.js"); // Destructured
+const bcrypt = require('bcrypt');
 
 const signUp = async (req, res) => {
     const { error } = validate(req.body, 'signup')
@@ -50,4 +50,4 @@ const deleteUserById = async (req, res) => {
     res.status(200).send({ message: 'successfully deleted user!' })
 }
 
-export { signUp, loginUser, getAllUsers, getUserById, updateUserById, deleteUserById }
+module.exports =  { signUp, loginUser, getAllUsers, getUserById, updateUserById, deleteUserById }

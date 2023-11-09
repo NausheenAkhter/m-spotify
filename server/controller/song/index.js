@@ -1,6 +1,8 @@
-import mongoose from "mongoose"
-import Song, { validate } from "../../models/song.js"
-import User from "../../models/users.js"
+const mongoose = require("mongoose");
+const { Song } = require("../../models/song.js");
+const { User } = require("../../models/users.js");
+const { validate } = require("../../models/song.js"); // Destructured
+
 const getSongs = async (req, res, next) => {
     const songs = await Song.find()
     return res.status(200).send({ message: 'Sent!', data: songs })
@@ -18,7 +20,7 @@ const addSongs = async (req, res) => {
 }
 const updateSongById = async (req, res) => {
     if (!validate(req.body)) throw new Error('Validation error!')
-    const data = await Song.findByIdAndUpdate(req.params.id, {$set: req.body})
+    const data = await Song.findByIdAndUpdate(req.params.id, { $set: req.body })
     return res.status(200).send({ message: 'Updated!', data })
 }
 const deleteSongById = async (req, res) => {
@@ -32,9 +34,9 @@ const deleteSongById = async (req, res) => {
 }
 const likesSong = async (req, res) => {
     const data = await Song.findById(req.params.id)
-    if(!data) return res.status(400).send({message: 'No song found!'})
+    if (!data) return res.status(400).send({ message: 'No song found!' })
     const userData = await User.findById(req.user._id)
-    if(userData.likedSongs.indexOf(req.params.id) > -1) {
+    if (userData.likedSongs.indexOf(req.params.id) > -1) {
         userData.likedSongs.splice(userData.likedSongs.indexOf(req.params.id), 1)
     } else {
         userData.likedSongs.push(req.params.id)
@@ -46,6 +48,6 @@ const likesSong = async (req, res) => {
 
 const getLikedSongs = async (req, res) => {
     const user = await User.findById(req.user._id).populate('likedSongs')
-    return res.status(200).send({message: 'Success', data: user.likedSongs})
+    return res.status(200).send({ message: 'Success', data: user.likedSongs })
 }
-export { getSongs, getSongsById, addSongs, updateSongById, deleteSongById, likesSong, getLikedSongs }
+module.exports = { getSongs, getSongsById, addSongs, updateSongById, deleteSongById, likesSong, getLikedSongs }
