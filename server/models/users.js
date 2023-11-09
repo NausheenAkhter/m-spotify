@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     month: { type: String, required: true },
     date: { type: String, required: true },
     year: { type: String, required: true },
-    likedSongs: { type: [String], default: [] },
+    likedSongs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'song', default: [] }],
     playlists: { type: [String], default: [] },
     isAdmin: { type: Boolean, default: false },
 })
