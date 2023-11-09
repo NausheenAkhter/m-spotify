@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     date: { type: String, required: true },
     year: { type: String, required: true },
     likedSongs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'song', default: [] }],
-    playlists: { type: [String], default: [] },
+    playlists: [{ type: mongoose.Schema.Types.ObjectId, ref: 'playlist', default: [] }],
     isAdmin: { type: Boolean, default: false },
 })
 

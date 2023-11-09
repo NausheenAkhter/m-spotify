@@ -22,17 +22,11 @@ const updateSongById = async (req, res) => {
     return res.status(200).send({ message: 'Updated!', data })
 }
 const deleteSongById = async (req, res) => {
-    const session = await mongoose.startSession();
-    session.startTransaction();
     try {
         const data = await Song.findByIdAndDelete(req.params.id)
-        await session.commitTransaction();
         return res.status(200).send({ message: 'Deleted!', data })
     } catch (error) {
-        await session.abortTransaction();
         return res.status(400).send({ message: 'Failed to delete!' })
-    } finally {
-        session.endSession();
     }
 
 }
@@ -47,7 +41,7 @@ const likesSong = async (req, res) => {
     }
     const updatedUser = await userData.save()
 
-    return res.status(200).send({ message: 'Deleted!', data: updatedUser })
+    return res.status(200).send({ message: 'Added to liked songs!', data: updatedUser })
 }
 
 const getLikedSongs = async (req, res) => {
