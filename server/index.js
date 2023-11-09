@@ -1,14 +1,15 @@
-import dotenv from "dotenv";
-import Express from 'express'
-import connectToDb from './db.js'
-import routes from "./routes/index.js";
-import cors from 'cors';
-import 'express-async-errors'; // Import and configure express-async-errors
+const dotenv = require("dotenv");
+const express = require('express');
+const connectToDb = require('./db.js');
+const routes = require("./routes/index.js");
+const cors = require('cors');
+require('express-async-errors');
+
 
 dotenv.config();
-const app = Express()
+const app = express()
 app.use(cors())
-app.use(Express.json())
+app.use(express.json())
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {

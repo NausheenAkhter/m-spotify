@@ -1,7 +1,16 @@
-import { loginUser, signUp, getAllUsers, getUserById, updateUserById, deleteUserById } from "../../controller/user/index.js";
-import validateObjectId from "../../middleware/validObjectId.js";
-import admin from "../../middleware/admin/index.js";
-import auth from "../../middleware/auth/index.js";
+const {
+    loginUser,
+    signUp,
+    getAllUsers,
+    getUserById,
+    updateUserById,
+    deleteUserById
+} = require("../../controller/user/index.js");
+
+const validateObjectId = require("../../middleware/validObjectId.js");
+const admin = require("../../middleware/admin/index.js");
+const auth = require("../../middleware/auth/index.js");
+
 const userRoutes = (app) => {
     app.post('/api/login', loginUser)
     app.post('/api/signUp', signUp)
@@ -11,4 +20,5 @@ const userRoutes = (app) => {
     app.delete('/api/fetchUsers/:id', [validateObjectId, auth], deleteUserById)
 }
 
-export default userRoutes
+module.exports = userRoutes;
+

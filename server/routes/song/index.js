@@ -1,7 +1,16 @@
-import validateObjectId from "../../middleware/validObjectId.js";
-import admin from "../../middleware/admin/index.js";
-import auth from "../../middleware/auth/index.js";
-import { getSongs, getSongsById, addSongs, updateSongById, deleteSongById, likesSong, getLikedSongs } from "../../controller/song/index.js";
+const validateObjectId = require("../../middleware/validObjectId.js");
+const admin = require("../../middleware/admin/index.js");
+const auth = require("../../middleware/auth/index.js");
+const {
+  getSongs,
+  getSongsById,
+  addSongs,
+  updateSongById,
+  deleteSongById,
+  likesSong,
+  getLikedSongs
+} = require("../../controller/song/index.js");
+
 
 const songRoutes = (app) => {
     app.get('/api/songs', auth, getSongs)
@@ -14,4 +23,4 @@ const songRoutes = (app) => {
 
 }
 
-export default songRoutes
+module.exports =  songRoutes

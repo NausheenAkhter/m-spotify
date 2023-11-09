@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const validateObjectId = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id))
@@ -7,4 +7,4 @@ const validateObjectId = (req, res, next) => {
 
 }
 
-export default validateObjectId
+module.exports =  validateObjectId

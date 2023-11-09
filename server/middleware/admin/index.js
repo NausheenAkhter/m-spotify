@@ -1,4 +1,4 @@
-import Jwt from 'jsonwebtoken';
+const Jwt = require('jsonwebtoken');
 
 const admin = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
@@ -15,4 +15,4 @@ const admin = (req, res, next) => {
     })
 }
 
-export default admin
+module.exports = admin

@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
-import Joi from "joi";
+const mongoose = require("mongoose");
+const Joi = require("joi");
+
 const ObjectId = mongoose.Schema.Types.ObjectId
 
 const playListSchema = new mongoose.Schema({
@@ -42,5 +43,4 @@ const validateSongAdditionInPlaylist = (playlist) => {
 }
 
 const Playlist = mongoose.model('playlist', playListSchema)
-export default Playlist
-export { validate, validateSongAdditionInPlaylist }
+module.exports =  { validate, validateSongAdditionInPlaylist, Playlist }
