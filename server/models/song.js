@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import Joi from "joi";
+import User from "./users.js";
+
 
 const songSchema = new mongoose.Schema({
     name: {
@@ -22,6 +24,13 @@ const songSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+})
+
+songSchema.pre('deleteOne', { document: true },async (req, res, next) => {
+    const user = await new User.findById(req.user._id)
+    user.likedSongs.splice(req.params.id, 1)
+    await user.save()
+    next()
 })
 
 const validate = (song) => {
