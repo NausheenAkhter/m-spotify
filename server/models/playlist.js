@@ -5,7 +5,8 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const playListSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     user: {
         type: ObjectId,
@@ -15,10 +16,7 @@ const playListSchema = new mongoose.Schema({
     desc: {
         type: String
     },
-    songs: {
-        type: Array,
-        default: []
-    },
+    songs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'song', default: [] }],
     img: {
         type: String,
     },
@@ -35,6 +33,14 @@ const validate = (playlist) => {
     return schema.validate(playlist)
 }
 
-const Playlist = mongoose.model('song', playListSchema)
+const validateSongAdditionInPlaylist = (playlist) => {
+    const schema = Joi.object({
+        songId: Joi.string().required(),
+        playlistId: Joi.string().required(),
+    })
+    return schema.validate(playlist)
+}
+
+const Playlist = mongoose.model('playlist', playListSchema)
 export default Playlist
-export { validate }
+export { validate, validateSongAdditionInPlaylist }

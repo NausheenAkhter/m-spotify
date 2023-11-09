@@ -32,17 +32,22 @@ const getAllUsers = async (req, res) => {
 }
 const getUserById = async (req, res) => {
     const user = await User.findById(req.params.id).select('-password -__v')
+    .populate([{ 
+        path: 'playlists', 
+        model: 'playlist',
+        populate: [{ path: 'songs' } ]
+    }]).populate('likedSongs')
     res.status(200).send({ message: 'Fetched user!', data: user })
 
 }
 
 const updateUserById = async (req, res) => {
-    const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}).select('-password -__v')
+    const user = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }).select('-password -__v')
     res.status(200).send({ message: 'user updated!', data: user })
 }
 const deleteUserById = async (req, res) => {
     await User.findByIdAndDelete(req.params.id)
-    res.status(200).send({ message: 'successfully deleted user!'})
+    res.status(200).send({ message: 'successfully deleted user!' })
 }
 
 export { signUp, loginUser, getAllUsers, getUserById, updateUserById, deleteUserById }
